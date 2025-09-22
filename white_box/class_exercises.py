@@ -62,6 +62,16 @@ def check_number_status(number):
     return "Zero"
 
 
+print(
+    "____________________Test cases for function check_number_status____________________."
+)
+print("Test Case 1. Input: 1 Result: ", check_number_status(1))
+print("Test Case 2. Input: 0 Result: ", check_number_status(0))
+print("Test Case 3. Input: -1 Result: ", check_number_status(-1))
+
+print("\n")
+
+
 # 2
 def validate_password(password):
     """
@@ -84,6 +94,19 @@ def validate_password(password):
     return True
 
 
+print(
+    "____________________Test cases for function validate_password____________________."
+)
+print("Test Case 1. Input: 'Password1!' Result: ", validate_password("Password1!"))
+print("Test Case 2. Input: 'pass' Result: ", validate_password("Pass1!"))
+print("Test Case 3. Input: 'PASSWORD1!' Result: ", validate_password("PASSWORD1!"))
+print("Test Case 4. Input: 'Password' Result: ", validate_password("Password"))
+print("Test Case 5. Input: 'Password' Result: ", validate_password("Password1"))
+print("Test Case 6. Input: 'Password' Result: ", validate_password("password1!"))
+
+print("\n")
+
+
 # 3
 def calculate_total_discount(total_amount):
     """
@@ -96,6 +119,16 @@ def calculate_total_discount(total_amount):
         return 0.1 * total_amount
 
     return 0.2 * total_amount
+
+
+print(
+    "____________________Test cases for function calculate_total_discount____________________."
+)
+print("Test Case 1. Input: 50 Result: ", calculate_total_discount(99))
+print("Test Case 2. Input: 100 Result: ", calculate_total_discount(100))
+print("Test Case 3. Input: 300 Result: ", calculate_total_discount(500))
+print("Test Case 4. Input: 600 Result: ", calculate_total_discount(501))
+print("\n")
 
 
 # 4
