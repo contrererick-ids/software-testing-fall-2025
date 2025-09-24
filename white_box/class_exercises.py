@@ -460,6 +460,20 @@ class TrafficLight:
         return self.state
 
 
+print(
+    "____________________Test cases for function calculate_total_discount____________________."
+)
+light = TrafficLight()
+print("Test Case 1. Check Initial State: ", light.get_current_state())
+light.change_state()
+print("Test Case 2. Change State to Green: ", light.get_current_state())
+light.change_state()
+print("Test Case 3. Change State to Yellow: ", light.get_current_state())
+light.change_state()
+print("Test Case 4. Change State to Red: ", light.get_current_state())
+print("\n")
+
+
 # 24
 class UserAuthentication:
     """
