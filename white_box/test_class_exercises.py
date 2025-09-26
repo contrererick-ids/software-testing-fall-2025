@@ -7,6 +7,7 @@ import unittest
 
 from white_box.class_exercises import (
     VendingMachine,
+    check_number_status,
     divide,
     get_grade,
     is_even,
@@ -131,3 +132,27 @@ class TestWhiteBoxVendingMachine(unittest.TestCase):
 
         self.assertEqual(self.vending_machine.state, "Dispensing")
         self.assertEqual(output, "Coin Inserted. Select your drink.")
+
+
+class TestWhiteBoxCheckNumberStatus(unittest.TestCase):
+    """
+    Check number status unit tests.
+    """
+
+    def test_check_number_status_negative(self):
+        """
+        Checks the number is negative.
+        """
+        self.assertEqual(check_number_status(-1), "Negative")
+
+    def test_check_number_status_zero(self):
+        """
+        Checks the number is zero.
+        """
+        self.assertEqual(check_number_status(0), "Zero")
+
+    def test_check_number_status_positive(self):
+        """
+        Checks the number is a positive number.
+        """
+        self.assertEqual(check_number_status(1), "Positive")
