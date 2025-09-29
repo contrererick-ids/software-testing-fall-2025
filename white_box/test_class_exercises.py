@@ -8,8 +8,8 @@ import unittest
 from white_box.class_exercises import (
     VendingMachine,
     calculate_items_shipping_cost,
-    calculate_total_discount,
     calculate_order_total,
+    calculate_total_discount,
     categorize_product,
     celsius_to_fahrenheit,
     check_number_status,
@@ -20,7 +20,7 @@ from white_box.class_exercises import (
     validate_email,
     validate_login,
     validate_password,
-    verify_age
+    verify_age,
 )
 
 
@@ -251,9 +251,7 @@ class TestCalculateOrderTotal(unittest.TestCase):
         Checks the order total with no discount.
         """
 
-        items = [{"quantity": 1, "price": 20},
-                 {"quantity": 5, "price": 20}
-        ]
+        items = [{"quantity": 1, "price": 20}, {"quantity": 5, "price": 20}]
         self.assertEqual(calculate_order_total(items), 120)
 
     def test_calculate_order_total_with_five_percent(self):
@@ -261,9 +259,7 @@ class TestCalculateOrderTotal(unittest.TestCase):
         Checks the order total with 5% discount.
         """
 
-        items = [{"quantity": 6, "price": 20},
-                 {"quantity": 10, "price": 20}
-        ]
+        items = [{"quantity": 6, "price": 20}, {"quantity": 10, "price": 20}]
         self.assertEqual(calculate_order_total(items), 304)
 
     def test_calculate_order_total_with_ten_percent(self):
@@ -273,6 +269,7 @@ class TestCalculateOrderTotal(unittest.TestCase):
 
         items = [{"quantity": 11, "price": 20}]
         self.assertEqual(calculate_order_total(items), 198)
+
 
 class TestCalculateItemsShippingCost(unittest.TestCase):
     """
@@ -284,93 +281,82 @@ class TestCalculateItemsShippingCost(unittest.TestCase):
         Checks the shipping cost with no items and valid shipping method.
         """
 
-        self.assertEqual(calculate_items_shipping_cost([],"standard"), 10)
-        self.assertEqual(calculate_items_shipping_cost([],"express"), 20)
+        self.assertEqual(calculate_items_shipping_cost([], "standard"), 10)
+        self.assertEqual(calculate_items_shipping_cost([], "express"), 20)
         self.assertRaises(ValueError, calculate_items_shipping_cost, [], "invalid")
 
-    def test_calculate_items_shipping_cost_equals_ten_and_shippoing_method_standard(self):
+    def test_calculate_items_shipping_cost_equals_ten_and_shippoing_method_standard(
+        self,
+    ):
         """
         Checks the shipping cost with standard shipping method and total weight less than 5.
         """
 
-        items = [{"weight": 1},
-                 {"weight": 1},
-                 {"weight": 2}
-        ]
-        self.assertEqual(calculate_items_shipping_cost(items,"standard"), 10)
-    
-    def test_calculate_items_shipping_cost_equals_fifteen_and_shipping_method_standard(self):
+        items = [{"weight": 1}, {"weight": 1}, {"weight": 2}]
+        self.assertEqual(calculate_items_shipping_cost(items, "standard"), 10)
+
+    def test_calculate_items_shipping_cost_equals_fifteen_and_shipping_method_standard(
+        self,
+    ):
         """
         Checks the shipping cost with standard shipping method and total weight greater than 5.
         """
 
-        items = [{"weight": 3},
-                 {"weight": 3}
-        ]
-        self.assertEqual(calculate_items_shipping_cost(items,"standard"), 15)
-        items = [{"weight": 3},
-                 {"weight": 2},
-                 {"weight": 5}
-        ]
-        self.assertEqual(calculate_items_shipping_cost(items,"standard"), 15)
+        items = [{"weight": 3}, {"weight": 3}]
+        self.assertEqual(calculate_items_shipping_cost(items, "standard"), 15)
+        items = [{"weight": 3}, {"weight": 2}, {"weight": 5}]
+        self.assertEqual(calculate_items_shipping_cost(items, "standard"), 15)
 
-    def test_calculate_items_shipping_cost_equals_twenty_and_shipping_method_standard(self):
+    def test_calculate_items_shipping_cost_equals_twenty_and_shipping_method_standard(
+        self,
+    ):
         """
         Checks the shipping cost with express shipping method and total weight less than 5.
         """
 
-        items = [{"weight": 5},
-                 {"weight": 3},
-                 {"weight": 3}
-        ]
-        self.assertEqual(calculate_items_shipping_cost(items,"standard"), 20)
+        items = [{"weight": 5}, {"weight": 3}, {"weight": 3}]
+        self.assertEqual(calculate_items_shipping_cost(items, "standard"), 20)
 
-    def test_calculate_items_shipping_cost_equals_twenty_and_shipping_method_expres(self):
+    def test_calculate_items_shipping_cost_equals_twenty_and_shipping_method_expres(
+        self,
+    ):
         """
         Checks the shipping cost with express shipping method and total weight less than 5.
         """
 
-        items = [{"weight": 1},
-                 {"weight": 1},
-                 {"weight": 2}
-        ]
-        self.assertEqual(calculate_items_shipping_cost(items,"express"), 20)
-    
-    def test_calculate_items_shipping_cost_equals_thirty_and_shipping_method_expres(self):
+        items = [{"weight": 1}, {"weight": 1}, {"weight": 2}]
+        self.assertEqual(calculate_items_shipping_cost(items, "express"), 20)
+
+    def test_calculate_items_shipping_cost_equals_thirty_and_shipping_method_expres(
+        self,
+    ):
         """
         Checks the shipping cost with express shipping method and total weight greater than 5.
         """
 
-        items = [{"weight": 3},
-                 {"weight": 3}
-        ]
-        self.assertEqual(calculate_items_shipping_cost(items,"express"), 30)
-        items = [{"weight": 3},
-                 {"weight": 2},
-                 {"weight": 5}
-        ]
-        self.assertEqual(calculate_items_shipping_cost(items,"express"), 30)
-    
-    def test_calculate_items_shipping_cost_equals_forty_and_shipping_method_expres(self):
+        items = [{"weight": 3}, {"weight": 3}]
+        self.assertEqual(calculate_items_shipping_cost(items, "express"), 30)
+        items = [{"weight": 3}, {"weight": 2}, {"weight": 5}]
+        self.assertEqual(calculate_items_shipping_cost(items, "express"), 30)
+
+    def test_calculate_items_shipping_cost_equals_forty_and_shipping_method_expres(
+        self,
+    ):
         """
         Checks the shipping cost with express shipping method and total weight greater than 10.
         """
 
-        items = [{"weight": 5},
-                 {"weight": 6}
-        ]
-        self.assertEqual(calculate_items_shipping_cost(items,"express"), 40)
+        items = [{"weight": 5}, {"weight": 6}]
+        self.assertEqual(calculate_items_shipping_cost(items, "express"), 40)
 
     def test_calculate_items_shipping_cost_invalid_shipping_method(self):
         """
         Checks the shipping cost with invalid shipping method.
         """
 
-        items = [{"weight": 1},
-                 {"weight": 1},
-                 {"weight": 2}
-        ]
+        items = [{"weight": 1}, {"weight": 1}, {"weight": 2}]
         self.assertRaises(ValueError, calculate_items_shipping_cost, items, "invalid")
+
 
 class TestValidateLogin(unittest.TestCase):
     """
@@ -381,8 +367,8 @@ class TestValidateLogin(unittest.TestCase):
         """
         Checks the username is empty.
         """
-        
-        self.assertEqual(validate_login("", "Password123!"),"Login Failed")
+
+        self.assertEqual(validate_login("", "Password123!"), "Login Failed")
 
     def test_validate_login_empty_password(self):
         """
@@ -393,39 +379,42 @@ class TestValidateLogin(unittest.TestCase):
 
     def test_validate_login_invalid_username_length_less_than_five(self):
         """
-        Checks the username is invalid.
+        Checks the username length is less than five characters.
         """
 
         self.assertEqual(validate_login("use", "Password123!"), "Login Failed")
 
     def test_validate_login_invalid_username_length_more_than_twenty(self):
         """
-        Checks the username is invalid.
+        Checks the username length is greater than twenty characters.
         """
 
-        self.assertEqual(validate_login("thisisaverylonguserna", "Password123!"),"Login Failed")
+        self.assertEqual(
+            validate_login("thisisaverylonguserna", "Password123!"), "Login Failed"
+        )
 
     def test_validate_login_invalid_password_length_less_than_eight(self):
         """
-        Checks the password is invalid.
+        Checks the password length is less than eight characters.
         """
 
-        self.assertEqual(validate_login("Username", "Pass1!"),"Login Failed")
+        self.assertEqual(validate_login("Username", "Pass1!"), "Login Failed")
 
     def test_validate_login_invalid_password_length_greater_than_fifteen(self):
         """
-        Checks the password is invalid.
+        Checks the password length is greater than fifteen characters.
         """
 
-        self.assertEqual(validate_login("Username", "Thisisaverylongp"),"Login Failed")
-    
+        self.assertEqual(validate_login("Username", "Thisisaverylongp"), "Login Failed")
+
     def test_validate_login_success(self):
         """
         Checks the login is successful.
         """
 
-        self.assertEqual(validate_login("Username", "Password123!"),"Login Successful")
-    
+        self.assertEqual(validate_login("Username", "Password123!"), "Login Successful")
+
+
 class TestVerifyAge(unittest.TestCase):
     """
     Verify age unit tests.
@@ -444,7 +433,7 @@ class TestVerifyAge(unittest.TestCase):
         """
 
         self.assertEqual(verify_age(18), "Eligible")
-    
+
     def test_verify_age_sixtyfive(self):
         """
         Checks the age is overage.
@@ -459,6 +448,7 @@ class TestVerifyAge(unittest.TestCase):
 
         self.assertEqual(verify_age(66), "Not Eligible")
 
+
 class TestCategorizeProduct(unittest.TestCase):
     """
     Categorize product unit tests.
@@ -471,7 +461,7 @@ class TestCategorizeProduct(unittest.TestCase):
 
         self.assertEqual(categorize_product(10), "Category A")
         self.assertEqual(categorize_product(50), "Category A")
-    
+
     def test_categorize_product_category_b(self):
         """
         Checks the product is in category B.
@@ -479,7 +469,7 @@ class TestCategorizeProduct(unittest.TestCase):
 
         self.assertEqual(categorize_product(51), "Category B")
         self.assertEqual(categorize_product(100), "Category B")
-    
+
     def test_categorize_product_category_c(self):
         """
         Checks the product is in category C.
@@ -487,7 +477,7 @@ class TestCategorizeProduct(unittest.TestCase):
 
         self.assertEqual(categorize_product(101), "Category C")
         self.assertEqual(categorize_product(200), "Category C")
-    
+
     def test_categorize_product_category_d(self):
         """
         Checks the product is in category D.
@@ -507,35 +497,39 @@ class TestValidateEmail(unittest.TestCase):
         Checks the email is too short.
         """
 
-        self.assertEqual(validate_email("a@.b"),"Invalid Email")
+        self.assertEqual(validate_email("a@.b"), "Invalid Email")
 
     def test_validate_email_no_at_symbol(self):
         """
         Checks the email has no "@" symbol.
         """
 
-        self.assertEqual(validate_email("userexample.com"),"Invalid Email")
-        
+        self.assertEqual(validate_email("userexample.com"), "Invalid Email")
+
     def test_validate_email_no_dot_symbol(self):
         """
         Checks the email has no "." symbol.
         """
 
-        self.assertEqual(validate_email("user@examplecom"),"Invalid Email")
-    
+        self.assertEqual(validate_email("user@examplecom"), "Invalid Email")
+
     def test_validate_email_too_long(self):
         """
         Checks the email is too long.
         """
 
-        self.assertEqual(validate_email("userthatistoolong@examplethatistoolong.comthatistoolong"),"Invalid Email")
+        self.assertEqual(
+            validate_email("userthatistoolong@examplethatistoolong.comthatistoolong"),
+            "Invalid Email",
+        )
 
     def test_validate_email_valid(self):
         """
         Checks the email is valid.
         """
 
-        self.assertEqual(validate_email("user@example.com"),"Valid Email")
+        self.assertEqual(validate_email("user@example.com"), "Valid Email")
+
 
 class TestCelsiusToFahrenheit(unittest.TestCase):
     """
@@ -562,4 +556,3 @@ class TestCelsiusToFahrenheit(unittest.TestCase):
         """
 
         self.assertEqual(celsius_to_fahrenheit(-101), "Invalid Temperature")
-
