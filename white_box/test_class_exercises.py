@@ -15,6 +15,7 @@ from white_box.class_exercises import (
     get_grade,
     is_even,
     is_triangle,
+    validate_login,
     validate_password
 )
 
@@ -367,3 +368,57 @@ class TestCalculateItemsShippingCost(unittest.TestCase):
         ]
         self.assertRaises(ValueError, calculate_items_shipping_cost, items, "invalid")
 
+class TestValidateLogin(unittest.TestCase):
+    """
+    Validate login unit tests.
+    """
+
+    def test_validate_login_empty_username(self):
+        """
+        Checks the username is empty.
+        """
+        
+        self.assertEqual(validate_login("", "Password123!"),"Login Failed")
+
+    def test_validate_login_empty_password(self):
+        """
+        Checks the password is empty.
+        """
+
+        self.assertEqual(validate_login("Username", ""), "Login Failed")
+
+    def test_validate_login_invalid_username_length_less_than_five(self):
+        """
+        Checks the username is invalid.
+        """
+
+        self.assertEqual(validate_login("use", "Password123!"), "Login Failed")
+
+    def test_validate_login_invalid_username_length_more_than_twenty(self):
+        """
+        Checks the username is invalid.
+        """
+
+        self.assertEqual(validate_login("thisisaverylonguserna", "Password123!"),"Login Failed")
+
+    def test_validate_login_invalid_password_length_less_than_eight(self):
+        """
+        Checks the password is invalid.
+        """
+
+        self.assertEqual(validate_login("Username", "Pass1!"),"Login Failed")
+
+    def test_validate_login_invalid_password_length_greater_than_fifteen(self):
+        """
+        Checks the password is invalid.
+        """
+
+        self.assertEqual(validate_login("Username", "Thisisaverylongp"),"Login Failed")
+    
+    def test_validate_login_success(self):
+        """
+        Checks the login is successful.
+        """
+
+        self.assertEqual(validate_login("Username", "Password123!"),"Login Successful")
+    
