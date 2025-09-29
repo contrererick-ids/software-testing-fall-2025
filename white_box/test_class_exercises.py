@@ -10,6 +10,7 @@ from white_box.class_exercises import (
     calculate_items_shipping_cost,
     calculate_total_discount,
     calculate_order_total,
+    categorize_product,
     check_number_status,
     divide,
     get_grade,
@@ -455,4 +456,41 @@ class TestVerifyAge(unittest.TestCase):
         """
 
         self.assertEqual(verify_age(66), "Not Eligible")
+
+class TestCategorizeProduct(unittest.TestCase):
+    """
+    Categorize product unit tests.
+    """
+
+    def test_categorize_product_category_a(self):
+        """
+        Checks the product is in category A.
+        """
+
+        self.assertEqual(categorize_product(10), "Category A")
+        self.assertEqual(categorize_product(50), "Category A")
+    
+    def test_categorize_product_category_b(self):
+        """
+        Checks the product is in category B.
+        """
+
+        self.assertEqual(categorize_product(51), "Category B")
+        self.assertEqual(categorize_product(100), "Category B")
+    
+    def test_categorize_product_category_c(self):
+        """
+        Checks the product is in category C.
+        """
+
+        self.assertEqual(categorize_product(101), "Category C")
+        self.assertEqual(categorize_product(200), "Category C")
+    
+    def test_categorize_product_category_d(self):
+        """
+        Checks the product is in category D.
+        """
+
+        self.assertEqual(categorize_product(9), "Category D")
+        self.assertEqual(categorize_product(201), "Category D")
 
