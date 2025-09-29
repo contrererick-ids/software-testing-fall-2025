@@ -16,6 +16,7 @@ from white_box.class_exercises import (
     get_grade,
     is_even,
     is_triangle,
+    validate_email,
     validate_login,
     validate_password,
     verify_age
@@ -493,4 +494,45 @@ class TestCategorizeProduct(unittest.TestCase):
 
         self.assertEqual(categorize_product(9), "Category D")
         self.assertEqual(categorize_product(201), "Category D")
+
+
+class TestValidateEmail(unittest.TestCase):
+    """
+    Validate email unit tests.
+    """
+
+    def test_validate_email_too_short(self):
+        """
+        Checks the email is too short.
+        """
+
+        self.assertEqual(validate_email("a@.b"),"Invalid Email")
+
+    def test_validate_email_no_at_symbol(self):
+        """
+        Checks the email has no "@" symbol.
+        """
+
+        self.assertEqual(validate_email("userexample.com"),"Invalid Email")
+        
+    def test_validate_email_no_dot_symbol(self):
+        """
+        Checks the email has no "." symbol.
+        """
+
+        self.assertEqual(validate_email("user@examplecom"),"Invalid Email")
+    
+    def test_validate_email_too_long(self):
+        """
+        Checks the email is too long.
+        """
+
+        self.assertEqual(validate_email("userthatistoolong@examplethatistoolong.comthatistoolong"),"Invalid Email")
+
+    def test_validate_email_valid(self):
+        """
+        Checks the email is valid.
+        """
+
+        self.assertEqual(validate_email("user@example.com"),"Valid Email")
 
