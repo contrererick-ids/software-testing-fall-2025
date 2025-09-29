@@ -11,6 +11,7 @@ from white_box.class_exercises import (
     calculate_total_discount,
     calculate_order_total,
     categorize_product,
+    celsius_to_fahrenheit,
     check_number_status,
     divide,
     get_grade,
@@ -535,4 +536,30 @@ class TestValidateEmail(unittest.TestCase):
         """
 
         self.assertEqual(validate_email("user@example.com"),"Valid Email")
+
+class TestCelsiusToFahrenheit(unittest.TestCase):
+    """
+    Celsius to Fahrenheit unit tests.
+    """
+
+    def test_celsius_to_fahrenheit_freezing(self):
+        """
+        Checks the conversion of 0 Celsius to Fahrenheit.
+        """
+
+        self.assertEqual(celsius_to_fahrenheit(0), 32)
+
+    def test_celsius_to_fahrenheit_grater_than_one_hundred(self):
+        """
+        Checks the conversion of temperature greater than 100 Celsius to Fahrenheit.
+        """
+
+        self.assertEqual(celsius_to_fahrenheit(101), "Invalid Temperature")
+
+    def test_celsius_to_fahrenheit_less_than_negative_one_hundred(self):
+        """
+        Checks the conversion of temperature less than -100 Celsius to Fahrenheit.
+        """
+
+        self.assertEqual(celsius_to_fahrenheit(-101), "Invalid Temperature")
 
