@@ -7,6 +7,7 @@ import unittest
 
 from white_box.class_exercises import (
     VendingMachine,
+    calculate_items_shipping_cost,
     calculate_total_discount,
     calculate_order_total,
     check_number_status,
@@ -267,4 +268,102 @@ class TestCalculateOrderTotal(unittest.TestCase):
 
         items = [{"quantity": 11, "price": 20}]
         self.assertEqual(calculate_order_total(items), 198)
+
+class TestCalculateItemsShippingCost(unittest.TestCase):
+    """
+    Calculate items shipping cost unit tests.
+    """
+
+    def test_calculate_items_shipping_cost_no_items(self):
+        """
+        Checks the shipping cost with no items and valid shipping method.
+        """
+
+        self.assertEqual(calculate_items_shipping_cost([],"standard"), 10)
+        self.assertEqual(calculate_items_shipping_cost([],"express"), 20)
+        self.assertRaises(ValueError, calculate_items_shipping_cost, [], "invalid")
+
+    def test_calculate_items_shipping_cost_equals_ten_and_shippoing_method_standard(self):
+        """
+        Checks the shipping cost with standard shipping method and total weight less than 5.
+        """
+
+        items = [{"weight": 1},
+                 {"weight": 1},
+                 {"weight": 2}
+        ]
+        self.assertEqual(calculate_items_shipping_cost(items,"standard"), 10)
+    
+    def test_calculate_items_shipping_cost_equals_fifteen_and_shipping_method_standard(self):
+        """
+        Checks the shipping cost with standard shipping method and total weight greater than 5.
+        """
+
+        items = [{"weight": 3},
+                 {"weight": 3}
+        ]
+        self.assertEqual(calculate_items_shipping_cost(items,"standard"), 15)
+        items = [{"weight": 3},
+                 {"weight": 2},
+                 {"weight": 5}
+        ]
+        self.assertEqual(calculate_items_shipping_cost(items,"standard"), 15)
+
+    def test_calculate_items_shipping_cost_equals_twenty_and_shipping_method_standard(self):
+        """
+        Checks the shipping cost with express shipping method and total weight less than 5.
+        """
+
+        items = [{"weight": 5},
+                 {"weight": 3},
+                 {"weight": 3}
+        ]
+        self.assertEqual(calculate_items_shipping_cost(items,"standard"), 20)
+
+    def test_calculate_items_shipping_cost_equals_twenty_and_shipping_method_expres(self):
+        """
+        Checks the shipping cost with express shipping method and total weight less than 5.
+        """
+
+        items = [{"weight": 1},
+                 {"weight": 1},
+                 {"weight": 2}
+        ]
+        self.assertEqual(calculate_items_shipping_cost(items,"express"), 20)
+    
+    def test_calculate_items_shipping_cost_equals_thirty_and_shipping_method_expres(self):
+        """
+        Checks the shipping cost with express shipping method and total weight greater than 5.
+        """
+
+        items = [{"weight": 3},
+                 {"weight": 3}
+        ]
+        self.assertEqual(calculate_items_shipping_cost(items,"express"), 30)
+        items = [{"weight": 3},
+                 {"weight": 2},
+                 {"weight": 5}
+        ]
+        self.assertEqual(calculate_items_shipping_cost(items,"express"), 30)
+    
+    def test_calculate_items_shipping_cost_equals_forty_and_shipping_method_expres(self):
+        """
+        Checks the shipping cost with express shipping method and total weight greater than 10.
+        """
+
+        items = [{"weight": 5},
+                 {"weight": 6}
+        ]
+        self.assertEqual(calculate_items_shipping_cost(items,"express"), 40)
+
+    def test_calculate_items_shipping_cost_invalid_shipping_method(self):
+        """
+        Checks the shipping cost with invalid shipping method.
+        """
+
+        items = [{"weight": 1},
+                 {"weight": 1},
+                 {"weight": 2}
+        ]
+        self.assertRaises(ValueError, calculate_items_shipping_cost, items, "invalid")
 
