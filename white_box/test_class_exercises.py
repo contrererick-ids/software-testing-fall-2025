@@ -8,6 +8,7 @@ import unittest
 from white_box.class_exercises import (
     VendingMachine,
     calculate_total_discount,
+    calculate_order_total,
     check_number_status,
     divide,
     get_grade,
@@ -225,4 +226,45 @@ class TestCalculateTotalDiscount(unittest.TestCase):
         Checks 20% discount applied.
         """
         self.assertEqual(calculate_total_discount(501), 100.2)
+
+
+class TestCalculateOrderTotal(unittest.TestCase):
+    """
+    Calculate order total unit tests.
+    """
+
+    def test_calculate_order_total_no_items(self):
+        """
+        Checks the order total with no items.
+        """
+
+        self.assertEqual(calculate_order_total([]), 0)
+
+    def test_calculate_order_total_no_discount(self):
+        """
+        Checks the order total with no discount.
+        """
+
+        items = [{"quantity": 1, "price": 20},
+                 {"quantity": 5, "price": 20}
+        ]
+        self.assertEqual(calculate_order_total(items), 120)
+
+    def test_calculate_order_total_with_five_percent(self):
+        """
+        Checks the order total with 5% discount.
+        """
+
+        items = [{"quantity": 6, "price": 20},
+                 {"quantity": 10, "price": 20}
+        ]
+        self.assertEqual(calculate_order_total(items), 304)
+
+    def test_calculate_order_total_with_ten_percent(self):
+        """
+        Checks the order total with 10% discount.
+        """
+
+        items = [{"quantity": 11, "price": 20}]
+        self.assertEqual(calculate_order_total(items), 198)
 
