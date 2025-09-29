@@ -7,6 +7,7 @@ import unittest
 
 from white_box.class_exercises import (
     VendingMachine,
+    calculate_total_discount,
     check_number_status,
     divide,
     get_grade,
@@ -199,3 +200,29 @@ class TestValidatePassword(unittest.TestCase):
         Checks the password is valid.
         """
         self.assertTrue(validate_password("Pass1234!"))
+
+
+class TestCalculateTotalDiscount(unittest.TestCase):
+    """
+    Calculate total discount unit tests.
+    """
+
+    def test_calculate_total_discount_no_discount(self):
+        """
+        Checks no discount applied.
+        """
+        self.assertEqual(calculate_total_discount(99), 0)
+
+    def test_calculate_total_discount_ten_percent(self):
+        """
+        Checks 10% discount applied.
+        """
+        self.assertEqual(calculate_total_discount(100), 10)
+        self.assertEqual(calculate_total_discount(500), 50)
+
+    def test_calculate_total_discount_twenty_percent(self):
+        """
+        Checks 20% discount applied.
+        """
+        self.assertEqual(calculate_total_discount(501), 100.2)
+
