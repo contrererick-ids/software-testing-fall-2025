@@ -12,6 +12,7 @@ from white_box.class_exercises import (
     get_grade,
     is_even,
     is_triangle,
+    validate_password
 )
 
 
@@ -156,3 +157,45 @@ class TestWhiteBoxCheckNumberStatus(unittest.TestCase):
         Checks the number is a positive number.
         """
         self.assertEqual(check_number_status(1), "Positive")
+
+
+class TestValidatePassword(unittest.TestCase):
+    """
+    Validate password unit tests.
+    """
+
+    def test_validate_password_too_short(self):
+        """
+        Checks the password is too short.
+        """
+        self.assertFalse(validate_password("Pass12!"))
+
+    def test_validate_password_no_uppercase(self):
+        """
+        Checks the password has no uppercase letter.
+        """
+        self.assertFalse(validate_password("pass1234!"))
+
+    def test_validate_password_no_lowercase(self):
+        """
+        Checks the password has no lowercase letter.
+        """
+        self.assertFalse(validate_password("PASS1234!"))
+
+    def test_validate_password_no_digit(self):
+        """
+        Checks the password has no digit.
+        """
+        self.assertFalse(validate_password("Password!"))
+
+    def test_validate_password_no_special_char(self):
+        """
+        Checks the password has no special character.
+        """
+        self.assertFalse(validate_password("Pass1234"))
+
+    def test_validate_password_valid(self):
+        """
+        Checks the password is valid.
+        """
+        self.assertTrue(validate_password("Pass1234!"))
