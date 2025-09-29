@@ -6,6 +6,7 @@ White-box unit testing examples.
 import unittest
 
 from white_box.class_exercises import (
+    TrafficLight,
     VendingMachine,
     calculate_items_shipping_cost,
     calculate_order_total,
@@ -556,3 +557,47 @@ class TestCelsiusToFahrenheit(unittest.TestCase):
         """
 
         self.assertEqual(celsius_to_fahrenheit(-101), "Invalid Temperature")
+
+
+class TestTrafficLight(unittest.TestCase):
+    """
+    Traffic light unit tests.
+    """
+
+    def test_traffic_light_initial_state(self):
+        """
+        Checks the traffic light is red.
+        """
+
+        light = TrafficLight()
+        self.assertEqual(light.get_current_state(), "Red")
+
+    def test_traffic_light_green(self):
+        """
+        Checks the traffic light changes to green.
+        """
+
+        light = TrafficLight()
+        light.change_state()
+        self.assertEqual(light.get_current_state(), "Green")
+
+    def test_traffic_light_yellow(self):
+        """
+        Checks the traffic light changes to yellow.
+        """
+
+        light = TrafficLight()
+        light.change_state()
+        light.change_state()
+        self.assertEqual(light.get_current_state(), "Yellow")
+
+    def test_traffic_light_red(self):
+        """
+        Checks the traffic light changes back to red.
+        """
+
+        light = TrafficLight()
+        light.change_state()
+        light.change_state()
+        light.change_state()
+        self.assertEqual(light.get_current_state(), "Red")
