@@ -16,7 +16,8 @@ from white_box.class_exercises import (
     is_even,
     is_triangle,
     validate_login,
-    validate_password
+    validate_password,
+    verify_age
 )
 
 
@@ -422,3 +423,36 @@ class TestValidateLogin(unittest.TestCase):
 
         self.assertEqual(validate_login("Username", "Password123!"),"Login Successful")
     
+class TestVerifyAge(unittest.TestCase):
+    """
+    Verify age unit tests.
+    """
+
+    def test_verify_age_underage(self):
+        """
+        Checks the age is underage.
+        """
+
+        self.assertEqual(verify_age(17), "Not Eligible")
+
+    def test_verify_age_eigthteen(self):
+        """
+        Checks the age is of age.
+        """
+
+        self.assertEqual(verify_age(18), "Eligible")
+    
+    def test_verify_age_sixtyfive(self):
+        """
+        Checks the age is overage.
+        """
+
+        self.assertEqual(verify_age(65), "Eligible")
+
+    def test_verify_age_overage(self):
+        """
+        Checks the age is overage.
+        """
+
+        self.assertEqual(verify_age(66), "Not Eligible")
+
