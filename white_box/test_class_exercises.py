@@ -4,8 +4,13 @@
 White-box unit testing examples.
 """
 import unittest
+from unittest.mock import patch
 
 from white_box.class_exercises import (
+    BankAccount,
+    BankingSystem,
+    Product,
+    ShoppingCart,
     TrafficLight,
     VendingMachine,
     calculate_items_shipping_cost,
@@ -601,3 +606,300 @@ class TestTrafficLight(unittest.TestCase):
         light.change_state()
         light.change_state()
         self.assertEqual(light.get_current_state(), "Red")
+
+
+class TestBankAccount(unittest.TestCase):
+    """
+    Bank account unit tests.
+    """
+
+    def setUp(self):
+        self.bank_account = BankAccount("123456", 1000)
+        self.assertEqual(self.bank_account.account_number, "123456")
+        self.assertEqual(self.bank_account.balance, 1000)
+
+    def test_view_account_details(self):
+        """
+        Checks the account details are correct.
+        """
+        bank_account = BankAccount("123456", 1000)
+
+        with patch("white_box.class_exercises.print") as mock_print:
+            bank_account.view_account()
+        mock_print.assert_called_once_with("The account 123456 has a balance of 1000")
+
+
+class TestBankingSystem(unittest.TestCase):
+    """
+    Banking system unit tests.
+    """
+
+    def test_init_baking_system(self):
+        """
+        Checks the banking system is initialized correctly.
+        """
+
+        banking_system = BankingSystem()
+        self.assertEqual(banking_system.users, {"user123": "pass123"})
+        self.assertEqual(banking_system.logged_in_users, set())
+
+    def test_authenticate_user_succesfully(self):
+        """
+        Checks the user is authenticated successfully.
+        """
+
+        banking_system = BankingSystem()
+        user = "user123"
+        password = "pass123"
+        with patch("white_box.class_exercises.print") as mock_print:
+            banking_system.authenticate(user, password)
+        mock_print.assert_called_once_with("User user123 authenticated successfully.")
+
+    def test_authenticate_user_already_logged_in(self):
+        """
+        Checks the user alreayd logged in.
+        """
+
+        banking_system = BankingSystem()
+        user = "user123"
+        password = "pass123"
+        banking_system.authenticate(user, password)
+        with patch("white_box.class_exercises.print") as mock_print:
+            banking_system.authenticate(user, password)
+        mock_print.assert_called_once_with("User already logged in.")
+
+    def test_authenticate_user_failed(self):
+        """
+        Checks the user is not authenticated.
+        """
+
+        banking_system = BankingSystem()
+        user = "user123"
+        password = "pass456"
+        with patch("white_box.class_exercises.print") as mock_print:
+            banking_system.authenticate(user, password)
+        mock_print.assert_called_once_with("Authentication failed.")
+
+    def test_transfer_with_user_not_authenticated(self):
+        """
+        Checks the transfer fails when user is not authenticated.
+        """
+
+        banking_system = BankingSystem()
+        sender = "user123"
+        receiver = "user456"
+        amount = 100
+        transaction_type = "regular"
+        with patch("white_box.class_exercises.print") as mock_print:
+            banking_system.transfer_money(sender, receiver, amount, transaction_type)
+        mock_print.assert_called_once_with("Sender not authenticated.")
+
+    def test_transfer_with_invalid_transaction_type(self):
+        """
+        Checks the transfer fails when transaction type is invalid.
+        """
+
+        banking_system = BankingSystem()
+        sender = "user123"
+        banking_system.authenticate(sender, "pass123")
+        receiver = "user456"
+        amount = 100
+        transaction_type = "x"
+        with patch("white_box.class_exercises.print") as mock_print:
+            banking_system.transfer_money(sender, receiver, amount, transaction_type)
+        mock_print.assert_called_once_with("Invalid transaction type.")
+
+    def test_transfer_with_insufficient_funds(self):
+        """
+        Checks the transfer fails when sender has insufficient funds.
+        """
+
+        banking_system = BankingSystem()
+        sender = "user123"
+        banking_system.authenticate(sender, "pass123")
+        receiver = "user456"
+        amount = 2000
+        transaction_type = "regular"
+        with patch("white_box.class_exercises.print") as mock_print:
+            banking_system.transfer_money(sender, receiver, amount, transaction_type)
+        mock_print.assert_called_once_with("Insufficient funds.")
+
+    def test_transfer_succesfully_regular(self):
+        """
+        Checks the transfer is successful with regular transaction type.
+        """
+
+        banking_system = BankingSystem()
+        sender = "user123"
+        banking_system.authenticate(sender, "pass123")
+        receiver = "user456"
+        amount = 100
+        transaction_type = "regular"
+        with patch("white_box.class_exercises.print") as mock_print:
+            banking_system.transfer_money(sender, receiver, amount, transaction_type)
+        mock_print.assert_called_once_with(
+            f"Money transfer of ${amount} ({transaction_type} transfer)"
+            f" from {sender} to {receiver} processed successfully."
+        )
+
+    def test_transfer_succesfully_express(self):
+        """
+        Checks the transfer is successful with express transaction type.
+        """
+
+        banking_system = BankingSystem()
+        sender = "user123"
+        banking_system.authenticate(sender, "pass123")
+        receiver = "user456"
+        amount = 100
+        transaction_type = "express"
+        with patch("white_box.class_exercises.print") as mock_print:
+            banking_system.transfer_money(sender, receiver, amount, transaction_type)
+        mock_print.assert_called_once_with(
+            f"Money transfer of ${amount} ({transaction_type} transfer)"
+            f" from {sender} to {receiver} processed successfully."
+        )
+
+    def test_transfer_succesfully_scheduled(self):
+        """
+        Checks the transfer is successful with scheduled transaction type.
+        """
+
+        banking_system = BankingSystem()
+        sender = "user123"
+        banking_system.authenticate(sender, "pass123")
+        receiver = "user456"
+        amount = 100
+        transaction_type = "scheduled"
+        with patch("white_box.class_exercises.print") as mock_print:
+            banking_system.transfer_money(sender, receiver, amount, transaction_type)
+        mock_print.assert_called_once_with(
+            f"Money transfer of ${amount} ({transaction_type} transfer)"
+            f" from {sender} to {receiver} processed successfully."
+        )
+
+
+class TestProduct(unittest.TestCase):
+    """
+    Product unit tests.
+    """
+
+    def test_init_product(self):
+        """
+        Checks the product is initialized correctly.
+        """
+
+        product = Product("Laptop", 999.99)
+        self.assertEqual(product.name, "Laptop")
+        self.assertEqual(product.price, 999.99)
+
+    def test_view_product(self):
+        """
+        Checks the product details are correct.
+        """
+
+        product = Product("Laptop", 999.99)
+        with patch("white_box.class_exercises.print") as mock_print:
+            product.view_product()
+        mock_print.assert_called_once_with("The product Laptop has a price of 999.99")
+
+
+class TestShoppingCart(unittest.TestCase):
+    """
+    Shopping cart unit tests.
+    """
+
+    def test_init_shopping_cart(self):
+        """
+        Checks the shopping cart is initialized correctly.
+        """
+
+        cart = ShoppingCart()
+        self.assertEqual(cart.items, [])
+
+    def test_add_product(self):
+        """
+        Checks a product is added to the shopping cart.
+        """
+
+        cart = ShoppingCart()
+        product = Product("Laptop", 999.99)
+        cart.add_product(product, 1)
+        self.assertEqual(len(cart.items), 1)
+        self.assertEqual(cart.items[0]["product"], product)
+        self.assertEqual(cart.items[0]["quantity"], 1)
+
+    def test_product_already_in_shopping_cart(self):
+        """
+        Checks a product that is already in the shopping cart is not added again.
+        """
+
+        cart = ShoppingCart()
+        product = Product("Laptop", 999.99)
+        cart.add_product(product, 1)
+        cart.add_product(product, 1)
+        self.assertEqual(len(cart.items), 1)
+        self.assertEqual(cart.items[0]["product"], product)
+        self.assertEqual(cart.items[0]["quantity"], 2)
+
+    def test_remove_product(self):
+        """
+        Checks a product is removed totally from the shopping cart.
+        """
+
+        cart = ShoppingCart()
+        product = Product("Laptop", 999.99)
+        cart.add_product(product, 1)
+        cart.remove_product(product)
+        self.assertEqual(len(cart.items), 0)
+
+    def test_decrease_product_quantity(self):
+        """
+        Checks a product quantity is decreased in the shopping cart.
+        """
+
+        cart = ShoppingCart()
+        product = Product("Laptop", 999.99)
+        cart.add_product(product, 2)
+        cart.remove_product(product)
+        self.assertEqual(len(cart.items), 1)
+        self.assertEqual(cart.items[0]["product"], product)
+        self.assertEqual(cart.items[0]["quantity"], 1)
+
+    def test_view_cart(self):
+        """
+        Checks the shopping cart details are correct.
+        """
+
+        cart = ShoppingCart()
+        product = Product("Laptop", 999.99)
+        cart.add_product(product, 1)
+        for item in cart.items:
+            with patch("white_box.class_exercises.print") as mock_print:
+                cart.view_cart()
+            mock_print.assert_called_once_with(
+                f"{item['quantity']} x {item['product'].name}"
+                f" - ${item['product'].price * item['quantity']}"
+            )
+
+    def test_checkout(self):
+        """
+        Checks the checkout total is correct.
+        """
+
+        cart = ShoppingCart()
+        product1 = Product("Laptop", 999.99)
+        product2 = Product("Mouse", 49.99)
+        cart.add_product(product1, 1)
+        cart.add_product(product2, 2)
+        with patch("white_box.class_exercises.print") as mock_print:
+            cart.checkout()
+
+        self.assertEqual(mock_print.call_count, 2)
+
+        mock_print.assert_has_calls(
+            [
+                unittest.mock.call(f"Total: ${999.99 + 2 * 49.99}"),
+                unittest.mock.call("Checkout completed. Thank you for shopping!"),
+            ]
+        )
