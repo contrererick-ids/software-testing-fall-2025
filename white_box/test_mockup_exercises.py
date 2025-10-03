@@ -86,3 +86,12 @@ class TestReadDataFromFile(unittest.TestCase):
 
         # Assert that open was called with the correct filename and encoding
         mock_open.assert_called_once_with("sample.txt", encoding="utf-8")
+
+    def test_read_data_from_file_file_not_exists(self):
+        """
+        File not found case.
+        """
+
+        with patch("builtins.open", side_effect=FileNotFoundError):
+            with self.assertRaises(FileNotFoundError):
+                read_data_from_file("non_existent_file.txt")
