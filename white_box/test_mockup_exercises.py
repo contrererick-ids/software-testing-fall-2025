@@ -4,7 +4,6 @@
 Mock up testing examples.
 """
 import subprocess
-import time
 import unittest
 from unittest.mock import patch
 
@@ -147,20 +146,20 @@ class TestPerformActionBasedOnTime(unittest.TestCase):
     Perform action based on time unittest class.
     """
 
-    @patch("time.time", return_value=9)
-    def test_perform_action_based_on_time_action_a(self, mock_time):
+    def test_perform_action_based_on_time_action_a(self):
         """
         Action A case.
         """
 
-        result = perform_action_based_on_time()
-        self.assertEqual(result, "Action A")
+        with patch("time.time", return_value=9):
+            result = perform_action_based_on_time()
+            self.assertEqual(result, "Action A")
 
-    @patch("time.time", return_value=10)
-    def test_perform_action_based_on_time_action_b(self, mock_time):
+    def test_perform_action_based_on_time_action_b(self):
         """
         Action B case.
         """
 
-        result = perform_action_based_on_time()
-        self.assertEqual(result, "Action B")
+        with patch("time.time", return_value=10):
+            result = perform_action_based_on_time()
+            self.assertEqual(result, "Action B")
