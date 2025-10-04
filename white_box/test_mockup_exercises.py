@@ -3,10 +3,17 @@
 """
 Mock up testing examples.
 """
+import subprocess
+import time
 import unittest
 from unittest.mock import patch
 
-from white_box.mockup_exercises import fetch_data_from_api, read_data_from_file
+from white_box.mockup_exercises import (
+    execute_command,
+    fetch_data_from_api,
+    perform_action_based_on_time,
+    read_data_from_file,
+)
 
 
 class TestDataFetcher(unittest.TestCase):
@@ -95,3 +102,65 @@ class TestReadDataFromFile(unittest.TestCase):
         with patch("builtins.open", side_effect=FileNotFoundError):
             with self.assertRaises(FileNotFoundError):
                 read_data_from_file("non_existent_file.txt")
+
+
+class TestExecuteCommand(unittest.TestCase):
+    """
+    Execute command unittest class.
+    """
+
+    @patch("subprocess.run")
+    def test_execute_command_success(self, mock_run):
+        """
+        Success case.
+        """
+
+        # Set up the mock subprocess result
+        mock_run.return_value.stdout = "Command output"
+
+        # Call the function under test
+        result = execute_command(["echo", "Hello"])
+
+        # Assert that the function returns the expected result
+        self.assertEqual(result, "Command output")
+
+        # Assert that subprocess.run was called with the correct command
+        mock_run.assert_called_once_with(
+            ["echo", "Hello"], capture_output=True, check=False, text=True
+        )
+
+    def test_execute_command_failure(self):
+        """
+        Failure case.
+        """
+
+        # Set up the mock to raise a CalledProcessError
+        with patch(
+            "subprocess.run", side_effect=subprocess.CalledProcessError(1, "cmd")
+        ):
+            with self.assertRaises(subprocess.CalledProcessError):
+                execute_command(["false"])
+
+
+class TestPerformActionBasedOnTime(unittest.TestCase):
+    """
+    Perform action based on time unittest class.
+    """
+
+    @patch("time.time", return_value=9)
+    def test_perform_action_based_on_time_action_a(self, mock_time):
+        """
+        Action A case.
+        """
+
+        result = perform_action_based_on_time()
+        self.assertEqual(result, "Action A")
+
+    @patch("time.time", return_value=10)
+    def test_perform_action_based_on_time_action_b(self, mock_time):
+        """
+        Action B case.
+        """
+
+        result = perform_action_based_on_time()
+        self.assertEqual(result, "Action B")
