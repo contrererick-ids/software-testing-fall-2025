@@ -23,6 +23,7 @@ from white_box.class_exercises import (
     get_grade,
     is_even,
     is_triangle,
+    validate_credit_card,
     validate_email,
     validate_login,
     validate_password,
@@ -917,3 +918,37 @@ class TestShoppingCart(unittest.TestCase):
                 unittest.mock.call("Checkout completed. Thank you for shopping!"),
             ]
         )
+
+
+class TestValidateCreditCard(unittest.TestCase):
+    """
+    Validate credit card unit tests.
+    """
+
+    def test_validate_credit_card_too_short(self):
+        """
+        Validates error message for credit card number that is too short.
+        """
+
+        self.assertEqual(validate_credit_card("123456789012"), "Invalid Card")
+
+    def test_validate_credit_card_too_long(self):
+        """
+        Validates error message for credit card number that is too long.
+        """
+
+        self.assertEqual(validate_credit_card("12345678901234567"), "Invalid Card")
+
+    def test_validate_credit_card_success(self):
+        """
+        Validates success message for valid credit card number.
+        """
+
+        self.assertEqual(validate_credit_card("1234567890123"), "Valid Card")
+
+    def test_validate_credit_card_non_digit_characters(self):
+        """
+        Validates error message for credit card number with non-digit characters.
+        """
+
+        self.assertEqual(validate_credit_card("1234abcd56789"), "Invalid Card")
