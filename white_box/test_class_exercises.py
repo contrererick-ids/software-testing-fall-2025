@@ -563,6 +563,20 @@ class TestCelsiusToFahrenheit(unittest.TestCase):
 
         self.assertEqual(celsius_to_fahrenheit(-101), "Invalid Temperature")
 
+    def test_celsius_to_fahrenheit_equal_one_hundred(self):
+        """
+        Checks the conversion of 100 Celsius to Fahrenheit.
+        """
+
+        self.assertEqual(celsius_to_fahrenheit(100), 212)
+
+    def test_celsius_to_fahrenheit_equal_negative_one_hundred(self):
+        """
+        Checks the conversion of -100 Celsius to Fahrenheit.
+        """
+
+        self.assertEqual(celsius_to_fahrenheit(-100), -148)
+
 
 class TestTrafficLight(unittest.TestCase):
     """
