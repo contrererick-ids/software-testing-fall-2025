@@ -18,6 +18,7 @@ from white_box.class_exercises import (
     calculate_total_discount,
     categorize_product,
     celsius_to_fahrenheit,
+    check_flight_eligibility,
     check_number_status,
     divide,
     get_grade,
@@ -981,3 +982,58 @@ class TestValidateDate(unittest.TestCase):
         """
 
         self.assertEqual(validate_date(1899, 1, 1), "Invalid Date")
+
+
+class TestCheckFlightEligibility(unittest.TestCase):
+    """
+    Check flight eligibility unit tests.
+    """
+
+    def test_passenger_underage_and_frequent_flyer(self):
+        """
+        Checks the passenger is underage and frequent flyer.
+        """
+
+        self.assertEqual(check_flight_eligibility(17, True), "Eligible to Book")
+
+    def test_passenger_overage_and_frequent_flyer(self):
+        """
+        Checks the passenger is overage and frequent flyer.
+        """
+
+        self.assertEqual(check_flight_eligibility(66, True), "Eligible to Book")
+
+    def test_passenger_of_age_eighteen_and_not_frequent_flyer(self):
+        """
+        Checks the passenger is of age and not a frequent flyer.
+        """
+
+        self.assertEqual(check_flight_eligibility(18, False), "Eligible to Book")
+
+    def test_passenger_of_age_sixtyfive_and_not_frequent_flyer(self):
+        """
+        Checks the passenger is of age and not a frequent flyer.
+        """
+
+        self.assertEqual(check_flight_eligibility(65, False), "Eligible to Book")
+
+    def test_passenger_of_age_and_frequent_flyer(self):
+        """
+        Checks the passenger is of age and a frequent flyer.
+        """
+
+        self.assertEqual(check_flight_eligibility(30, True), "Eligible to Book")
+
+    def test_passenger_underage_and_not_frequent_flyer(self):
+        """
+        Checks the passenger is underage and not frequent flyer.
+        """
+
+        self.assertEqual(check_flight_eligibility(17, False), "Not Eligible to Book")
+
+    def test_passenger_overage_and_not_frequent_flyer(self):
+        """
+        Checks the passenger is overage and not frequent flyer.
+        """
+
+        self.assertEqual(check_flight_eligibility(66, False), "Not Eligible to Book")
