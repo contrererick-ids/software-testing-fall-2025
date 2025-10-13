@@ -29,6 +29,7 @@ from white_box.class_exercises import (
     validate_email,
     validate_login,
     validate_password,
+    validate_url,
     verify_age,
 )
 
@@ -1037,3 +1038,37 @@ class TestCheckFlightEligibility(unittest.TestCase):
         """
 
         self.assertEqual(check_flight_eligibility(66, False), "Not Eligible to Book")
+
+
+class TestValidateURL(unittest.TestCase):
+    """
+    Validate URL unit tests.
+    For this exercise, we are considering a URL that starts with http:// should be at maximum
+    255 characters long, and a URL that starts with https:// should not have an exceeding length.
+    """
+
+    def test_url_too_long(self):
+        """
+        Validates success and failed case for URL that is too long.
+        """
+
+        self.assertEqual(
+            validate_url(
+                "http://abcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmnopqrstuvwxyzabcdefghijklmno"
+            ),
+            "Invalid URL",
+        )
+
+    def test_url_starting_http(self):
+        """
+        Validates success case for URL starting with http://.
+        """
+
+        self.assertEqual(validate_url("http://example.com"), "Valid URL")
+
+    def test_url_starting_https(self):
+        """
+        Validates success case for URL starting with https://.
+        """
+
+        self.assertEqual(validate_url("https://example.com"), "Valid URL")
