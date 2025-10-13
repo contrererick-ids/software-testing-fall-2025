@@ -19,6 +19,7 @@ from white_box.class_exercises import (
     calculate_total_discount,
     categorize_product,
     celsius_to_fahrenheit,
+    check_file_size,
     check_flight_eligibility,
     check_number_status,
     divide,
@@ -1105,3 +1106,37 @@ class TestCalculateQuantityDiscount(unittest.TestCase):
 
         self.assertEqual(calculate_quantity_discount(11), "10% Discount")
         self.assertEqual(calculate_quantity_discount(20), "10% Discount")
+
+
+class TestCheckFileSize(unittest.TestCase):
+    """
+    Check file size unit tests.
+    """
+
+    def test_check_file_size_equal_zero(self):
+        """
+        Checks the file size is equal to zero.
+        """
+
+        self.assertEqual(check_file_size(0), "Valid File Size")
+
+    def test_check_file_size_equal_maximum_limit(self):
+        """
+        Checks the file size is equal to the maximum limit.
+        """
+
+        self.assertEqual(check_file_size(1048576), "Valid File Size")
+
+    def test_check_file_size_above_maximum_limit(self):
+        """
+        Checks the file size is above the maximum limit.
+        """
+
+        self.assertEqual(check_file_size(1048577), "Invalid File Size")
+
+    def test_check_file_size_for_negative_values(self):
+        """
+        Checks the file size is below zero.
+        """
+
+        self.assertEqual(check_file_size(-1), "Invalid File Size")
