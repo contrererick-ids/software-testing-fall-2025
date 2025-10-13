@@ -15,6 +15,7 @@ from white_box.class_exercises import (
     VendingMachine,
     calculate_items_shipping_cost,
     calculate_order_total,
+    calculate_quantity_discount,
     calculate_total_discount,
     categorize_product,
     celsius_to_fahrenheit,
@@ -1072,3 +1073,35 @@ class TestValidateURL(unittest.TestCase):
         """
 
         self.assertEqual(validate_url("https://example.com"), "Valid URL")
+
+
+class TestCalculateQuantityDiscount(unittest.TestCase):
+    """
+    Calculate quantity discount unit tests.
+    For this exercise we are not considering that is possible to have 0
+    or negative quantities of a product.
+    """
+
+    def test_calculate_discount_with_five_items_or_less(self):
+        """
+        Validates no discount is applied with 5 items or less.
+        """
+
+        self.assertEqual(calculate_quantity_discount(5), "No Discount")
+        self.assertEqual(calculate_quantity_discount(1), "No Discount")
+
+    def test_calculate_discount_with_six_to_ten_items(self):
+        """
+        Validates 5% discount is applied with 6 to 10 items.
+        """
+
+        self.assertEqual(calculate_quantity_discount(6), "5% Discount")
+        self.assertEqual(calculate_quantity_discount(10), "5% Discount")
+
+    def test_calculate_discount_with_eleven_or_more_items(self):
+        """
+        Validates 10% discount is applied with 11 or more items.
+        """
+
+        self.assertEqual(calculate_quantity_discount(11), "10% Discount")
+        self.assertEqual(calculate_quantity_discount(20), "10% Discount")
