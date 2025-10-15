@@ -7,6 +7,7 @@ import unittest
 
 from white_box.class_exercises import (
     calculate_quantity_discount,
+    calculate_shipping_cost,
     check_file_size,
     check_flight_eligibility,
     check_loan_eligibility,
@@ -230,3 +231,135 @@ class TestLoanEligibility(unittest.TestCase):
         """
 
         self.assertEqual(check_loan_eligibility(60001, 751), "Premium Loan")
+
+
+class TestCalculateShippingCost(unittest.TestCase):
+    """
+    Calculate shipping cost unit tests.
+    For the following tests, we are not considering floating point values for weight
+    and dimensions.
+    """
+
+    def test_shipping_cost_equals_five_with_maximum_dimensions(self):
+        """
+        Checks the shipping cost when dimensions are at maximum limits for the
+        shipping cost equals five case.
+        """
+
+        weight = 1
+        length = 10
+        width = 10
+        height = 10
+        self.assertEqual(calculate_shipping_cost(weight, length, width, height), 5)
+
+    def test_shipping_cost_equals_five_with_minimum_dimensions(self):
+        """
+        Checks the shipping cost when dimensions are at minimum limits for the
+        shipping cost equals five case.
+        """
+
+        weight = 1
+        length = 1
+        width = 1
+        height = 1
+        self.assertEqual(calculate_shipping_cost(weight, length, width, height), 5)
+
+    def test_shipping_cost_equals_ten_with_maximum_dimensions_and_maximum_weight(self):
+        """
+        Checks the shipping cost when dimensions and weight are at maximum limits for the
+        shipping cost equals ten case.
+        """
+
+        weight = 5
+        length = 30
+        width = 30
+        height = 30
+        self.assertEqual(calculate_shipping_cost(weight, length, width, height), 10)
+
+    def test_shipping_cost_equals_ten_with_maximum_dimensions_and_minimum_weight(self):
+        """
+        Checks the shipping cost when dimensions are at maximum limits and weight
+        is at minimum limit for the shipping cost equals ten case.
+        """
+
+        weight = 2
+        length = 30
+        width = 30
+        height = 30
+        self.assertEqual(calculate_shipping_cost(weight, length, width, height), 10)
+
+    def test_shipping_cost_equals_ten_with_minimum_dimensions_and_maximum_weight(self):
+        """
+        Checks the shipping cost when dimensions are at minimum limits and weight
+        is at maximum limit for the shipping cost equals ten case.
+        """
+
+        weight = 5
+        length = 11
+        width = 11
+        height = 11
+        self.assertEqual(calculate_shipping_cost(weight, length, width, height), 10)
+
+    def test_shipping_cost_equals_ten_with_minimum_dimensions_and_minimum_weight(self):
+        """
+        Checks the shipping cost when dimensions and weight are at minimum limits for the
+        shipping cost equals ten case.
+        """
+
+        weight = 2
+        length = 11
+        width = 11
+        height = 11
+        self.assertEqual(calculate_shipping_cost(weight, length, width, height), 10)
+
+    def test_shipping_cost_equals_twenty_with_dimensions_above_maximum_in_the_first_scenario(
+        self,
+    ):
+        """
+        Checks the shipping cost when dimensions are above maximum limits in the first scenario
+        for the shipping cost equals twenty case.
+        """
+
+        weight = 1
+        length = 11
+        width = 11
+        height = 11
+        self.assertEqual(calculate_shipping_cost(weight, length, width, height), 20)
+
+    def test_shipping_cost_equals_twenty_with_dimensions_above_maximum_in_the_second_scenario(
+        self,
+    ):
+        """
+        Checks the shipping cost when dimensions are above maximum limits in the second scenario
+        for the shipping cost equals twenty case.
+        """
+
+        weight = 5
+        length = 31
+        width = 31
+        height = 31
+        self.assertEqual(calculate_shipping_cost(weight, length, width, height), 20)
+
+    def test_shipping_cost_equals_twenty_with_weight_above_maximum(self):
+        """
+        Checks the shipping cost when weight is above maximum limit
+        for the shipping cost equals twenty case.
+        """
+
+        weight = 6
+        length = 11
+        width = 11
+        height = 11
+        self.assertEqual(calculate_shipping_cost(weight, length, width, height), 20)
+
+    def test_shipping_cost_equals_twenty_with_all_parameters_above_maximum(self):
+        """
+        Checks the shipping cost when all parameters are above maximum limits
+        for the shipping cost equals twenty case.
+        """
+
+        weight = 6
+        length = 31
+        width = 31
+        height = 31
+        self.assertEqual(calculate_shipping_cost(weight, length, width, height), 20)
