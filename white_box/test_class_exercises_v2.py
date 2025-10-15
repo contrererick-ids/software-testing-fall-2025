@@ -6,6 +6,7 @@ White-box unit testing examples continuation.
 import unittest
 
 from white_box.class_exercises import (
+    UserAuthentication,
     authenticate_user,
     calculate_quantity_discount,
     calculate_shipping_cost,
@@ -516,3 +517,53 @@ class TestGetWeatherAdvisory(unittest.TestCase):
         self.assertEqual(
             get_weather_advisory(temperature, humidity), "No Specific Advisory"
         )
+
+
+class TestUserAuthentication(unittest.TestCase):
+    """
+    User authentication unit tests.
+    """
+
+    def test_set_up(self):
+        """
+        Setup method to test user initialization.
+        """
+
+        user = UserAuthentication()
+        self.assertEqual(user.state, "Logged Out")
+
+    def test_login_successful(self):
+        """
+        Tests successful login.
+        """
+
+        user = UserAuthentication()
+        user.login()
+        self.assertEqual(user.state, "Logged In")
+
+    def test_login_failed(self):
+        """
+        Tests failed login.
+        """
+
+        user = UserAuthentication()
+        user.state = "Logged In"
+        self.assertEqual(user.login(), "Invalid operation in current state")
+
+    def test_logout_successful(self):
+        """
+        Tests successful logout.
+        """
+
+        user = UserAuthentication()
+        user.login()
+        user.logout()
+        self.assertEqual(user.state, "Logged Out")
+
+    def test_logout_failed(self):
+        """
+        Tests failed logout.
+        """
+
+        user = UserAuthentication()
+        self.assertEqual(user.logout(), "Invalid operation in current state")
