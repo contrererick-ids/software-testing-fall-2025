@@ -6,6 +6,7 @@ White-box unit testing examples continuation.
 import unittest
 
 from white_box.class_exercises import (
+    authenticate_user,
     calculate_quantity_discount,
     calculate_shipping_cost,
     check_file_size,
@@ -408,3 +409,45 @@ class TestGradeQuiz(unittest.TestCase):
         correct_answers = 7
         incorrect_answers = 4
         self.assertEqual(grade_quiz(correct_answers, incorrect_answers), "Fail")
+
+
+class TestAuthenticateUser(unittest.TestCase):
+    """
+    Authenticate user unit tests.
+    """
+
+    def test_authenticate_user_as_admin(self):
+        """
+        Validates the user is authenticated as admin.
+        """
+
+        username = "admin"
+        password = "admin123"
+        self.assertEqual(authenticate_user(username, password), "Admin")
+
+    def test_authenticate_user_as_regular_user(self):
+        """
+        Validates the user is authenticated as regular user.
+        """
+
+        username = "user1"
+        password = "pass1238"
+        self.assertEqual(authenticate_user(username, password), "User")
+
+    def test_authenticate_user_with_invalid_username(self):
+        """
+        Validates the user authentication fails due to invalid username.
+        """
+
+        username = "user"
+        password = "pass1234"
+        self.assertEqual(authenticate_user(username, password), "Invalid")
+
+    def test_authenticate_user_with_invalid_password(self):
+        """
+        Validates the user authentication fails due to invalid password.
+        """
+
+        username = "user1"
+        password = "pass123"
+        self.assertEqual(authenticate_user(username, password), "Invalid")
