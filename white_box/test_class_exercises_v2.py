@@ -6,6 +6,7 @@ White-box unit testing examples continuation.
 import unittest
 
 from white_box.class_exercises import (
+    DocumentEditingSystem,
     UserAuthentication,
     authenticate_user,
     calculate_quantity_discount,
@@ -567,3 +568,53 @@ class TestUserAuthentication(unittest.TestCase):
 
         user = UserAuthentication()
         self.assertEqual(user.logout(), "Invalid operation in current state")
+
+
+class TestDocumentEditingSystem(unittest.TestCase):
+    """
+    DocumentEditingSystem unit tests.
+    """
+
+    def test_set_up_document(self):
+        """
+        Setup method to test document initialization.
+        """
+
+        document = DocumentEditingSystem()
+        self.assertEqual(document.state, "Editing")
+
+    def test_save_document_successful(self):
+        """
+        Tests successful document save.
+        """
+
+        document = DocumentEditingSystem()
+        document.save_document()
+        self.assertEqual(document.state, "Saved")
+
+    def test_save_document_failed(self):
+        """
+        Tests failed document save.
+        """
+
+        document = DocumentEditingSystem()
+        document.save_document()
+        self.assertEqual(document.save_document(), "Invalid operation in current state")
+
+    def test_edit_document_successful(self):
+        """
+        Tests successful document edit.
+        """
+
+        document = DocumentEditingSystem()
+        document.save_document()
+        document.edit_document()
+        self.assertEqual(document.state, "Editing")
+
+    def test_edit_document_failed(self):
+        """
+        Tests failed document edit.
+        """
+
+        document = DocumentEditingSystem()
+        self.assertEqual(document.edit_document(), "Invalid operation in current state")
