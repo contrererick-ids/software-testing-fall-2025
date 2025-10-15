@@ -11,6 +11,7 @@ from white_box.class_exercises import (
     check_file_size,
     check_flight_eligibility,
     check_loan_eligibility,
+    grade_quiz,
     validate_url,
 )
 
@@ -363,3 +364,47 @@ class TestCalculateShippingCost(unittest.TestCase):
         width = 31
         height = 31
         self.assertEqual(calculate_shipping_cost(weight, length, width, height), 20)
+
+
+class TestGradeQuiz(unittest.TestCase):
+    """
+    Grade quiz unit tests.
+    """
+
+    def test_pass_case(self):
+        """
+        Validates the pass case.
+        """
+
+        correct_answers = 7
+        incorrect_answers = 2
+        self.assertEqual(grade_quiz(correct_answers, incorrect_answers), "Pass")
+
+    def test_conditional_pass_case(self):
+        """
+        Validates the conditional pass case.
+        """
+
+        correct_answers = 5
+        incorrect_answers = 3
+        self.assertEqual(
+            grade_quiz(correct_answers, incorrect_answers), "Conditional Pass"
+        )
+
+    def test_fail_case_with_four_correct_answers(self):
+        """
+        Validates the fail case.
+        """
+
+        correct_answers = 4
+        incorrect_answers = 1
+        self.assertEqual(grade_quiz(correct_answers, incorrect_answers), "Fail")
+
+    def test_fail_case_with_four_incorrect_answers(self):
+        """
+        Validates the fail case.
+        """
+
+        correct_answers = 7
+        incorrect_answers = 4
+        self.assertEqual(grade_quiz(correct_answers, incorrect_answers), "Fail")
