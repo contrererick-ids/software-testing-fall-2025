@@ -7,6 +7,7 @@ import unittest
 
 from white_box.class_exercises import (
     DocumentEditingSystem,
+    ElevatorSystem,
     UserAuthentication,
     authenticate_user,
     calculate_quantity_discount,
@@ -618,3 +619,81 @@ class TestDocumentEditingSystem(unittest.TestCase):
 
         document = DocumentEditingSystem()
         self.assertEqual(document.edit_document(), "Invalid operation in current state")
+
+
+class TestElevatorSystem(unittest.TestCase):
+    """
+    ElevatorSystem unit tests.
+    """
+
+    def test_set_up_elevator(self):
+        """
+        Setup method to test elevator initialization.
+        """
+
+        elevator = ElevatorSystem()
+        self.assertEqual(elevator.state, "Idle")
+
+    def test_move_up_successful(self):
+        """
+        Tests successful elevator move up.
+        """
+
+        elevator = ElevatorSystem()
+        elevator.move_up()
+        self.assertEqual(elevator.state, "Moving Up")
+
+    def test_move_up_failed(self):
+        """
+        Tests failed elevator move up.
+        """
+
+        elevator = ElevatorSystem()
+        elevator.move_up()
+        self.assertEqual(elevator.move_up(), "Invalid operation in current state")
+
+    def test_move_down_successful(self):
+        """
+        Tests successful elevator move down.
+        """
+
+        elevator = ElevatorSystem()
+        elevator.move_down()
+        self.assertEqual(elevator.state, "Moving Down")
+
+    def test_move_down_failed(self):
+        """
+        Tests failed elevator move down.
+        """
+
+        elevator = ElevatorSystem()
+        elevator.move_down()
+        self.assertEqual(elevator.move_down(), "Invalid operation in current state")
+
+    def test_stop_successful_with_current_state_moving_up(self):
+        """
+        Test successful elevator stop with current state "Moving Up".
+        """
+
+        elevator = ElevatorSystem()
+        elevator.move_up()
+        elevator.stop()
+        self.assertEqual(elevator.state, "Idle")
+
+    def test_stop_successful_with_current_state_moving_down(self):
+        """
+        Test successful elevator stop with current state "Moving Down".
+        """
+
+        elevator = ElevatorSystem()
+        elevator.move_down()
+        elevator.stop()
+        self.assertEqual(elevator.state, "Idle")
+
+    def test_stop_failed(self):
+        """
+        Test failed elevator stop.
+        """
+
+        elevator = ElevatorSystem()
+        self.assertEqual(elevator.stop(), "Invalid operation in current state")
