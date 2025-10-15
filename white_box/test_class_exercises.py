@@ -23,6 +23,8 @@ from white_box.class_exercises import (
     get_grade,
     is_even,
     is_triangle,
+    validate_credit_card,
+    validate_date,
     validate_email,
     validate_login,
     validate_password,
@@ -563,6 +565,20 @@ class TestCelsiusToFahrenheit(unittest.TestCase):
 
         self.assertEqual(celsius_to_fahrenheit(-101), "Invalid Temperature")
 
+    def test_celsius_to_fahrenheit_equal_one_hundred(self):
+        """
+        Checks the conversion of 100 Celsius to Fahrenheit.
+        """
+
+        self.assertEqual(celsius_to_fahrenheit(100), 212)
+
+    def test_celsius_to_fahrenheit_equal_negative_one_hundred(self):
+        """
+        Checks the conversion of -100 Celsius to Fahrenheit.
+        """
+
+        self.assertEqual(celsius_to_fahrenheit(-100), -148)
+
 
 class TestTrafficLight(unittest.TestCase):
     """
@@ -903,3 +919,65 @@ class TestShoppingCart(unittest.TestCase):
                 unittest.mock.call("Checkout completed. Thank you for shopping!"),
             ]
         )
+
+
+class TestValidateCreditCard(unittest.TestCase):
+    """
+    Validate credit card unit tests.
+    """
+
+    def test_validate_credit_card_too_short(self):
+        """
+        Validates error message for credit card number that is too short.
+        """
+
+        self.assertEqual(validate_credit_card("123456789012"), "Invalid Card")
+
+    def test_validate_credit_card_too_long(self):
+        """
+        Validates error message for credit card number that is too long.
+        """
+
+        self.assertEqual(validate_credit_card("12345678901234567"), "Invalid Card")
+
+    def test_validate_credit_card_success(self):
+        """
+        Validates success message for valid credit card number.
+        """
+
+        self.assertEqual(validate_credit_card("1234567890123"), "Valid Card")
+
+    def test_validate_credit_card_non_digit_characters(self):
+        """
+        Validates error message for credit card number with non-digit characters.
+        """
+
+        self.assertEqual(validate_credit_card("1234abcd56789"), "Invalid Card")
+
+
+class TestValidateDate(unittest.TestCase):
+    """
+    Validate date unit tests.
+    For this exercise, we are not considering unexisting dates like February 30, etc.
+    """
+
+    def test_validate_date_out_of_range_day(self):
+        """
+        Validates error message for date with out-of-range day.
+        """
+
+        self.assertEqual(validate_date(2000, 1, 32), "Invalid Date")
+
+    def test_validate_date_out_of_range_month(self):
+        """
+        Validates error message for date with out-of-range month.
+        """
+
+        self.assertEqual(validate_date(2000, 13, 1), "Invalid Date")
+
+    def test_validate_date_out_of_range_year(self):
+        """
+        Validates error message for date with out-of-range year.
+        """
+
+        self.assertEqual(validate_date(1899, 1, 1), "Invalid Date")
