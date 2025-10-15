@@ -12,6 +12,7 @@ from white_box.class_exercises import (
     check_file_size,
     check_flight_eligibility,
     check_loan_eligibility,
+    get_weather_advisory,
     grade_quiz,
     validate_url,
 )
@@ -451,3 +452,67 @@ class TestAuthenticateUser(unittest.TestCase):
         username = "user1"
         password = "pass123"
         self.assertEqual(authenticate_user(username, password), "Invalid")
+
+
+class TestGetWeatherAdvisory(unittest.TestCase):
+    """
+    Get weather advisory unit tests.
+    For the following exercise, we are not considering floating point values for temperature
+    and humidity.
+    """
+
+    def test_get_stay_hydrated_advisory(self):
+        """
+        Validates the advisory to stay hydrated.
+        """
+
+        temperature = 31
+        humidity = 71
+        self.assertEqual(
+            get_weather_advisory(temperature, humidity),
+            "High Temperature and Humidity. Stay Hydrated.",
+        )
+
+    def test_get_bundle_up_advisory(self):
+        """
+        Validates the advisory to bundle up.
+        """
+
+        temperature = -1
+        humidity = 71
+        self.assertEqual(
+            get_weather_advisory(temperature, humidity), "Low Temperature. Bundle Up!"
+        )
+
+    def test_temperature_equal_zero(self):
+        """
+        Validates the advisory when temperature is equal to 0.
+        """
+
+        temperature = 0
+        humidity = 71
+        self.assertEqual(
+            get_weather_advisory(temperature, humidity), "No Specific Advisory"
+        )
+
+    def test_temperature_below_thirty(self):
+        """
+        Validates the advisory when temperature is below 30.
+        """
+
+        temperature = 29
+        humidity = 71
+        self.assertEqual(
+            get_weather_advisory(temperature, humidity), "No Specific Advisory"
+        )
+
+    def test_temperature_above_thirty_but_humidity_below_seventy(self):
+        """
+        Validates the advisory when temperature is above 30 but humidity is below 70.
+        """
+
+        temperature = 31
+        humidity = 69
+        self.assertEqual(
+            get_weather_advisory(temperature, humidity), "No Specific Advisory"
+        )
