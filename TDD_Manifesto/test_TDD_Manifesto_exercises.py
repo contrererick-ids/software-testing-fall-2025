@@ -6,6 +6,7 @@ TDD Manifesto unit testing examples
 
 import unittest
 from TDD_Manifesto.TDD_Manifesto_exercises import(
+    add_number,
     fizz_buzz,
 )
 
@@ -62,3 +63,33 @@ class TestFizzBuzz(unittest.TestCase):
         test_string_output = fizz_buzz(number_as_input)        
 
         self.assertEqual(test_string_output, "FizzBuzz")
+
+
+class TestAddNumber(unittest.TestCase):
+    """
+    AddNumber unittest class
+    """
+
+    def test_GivenAnEmptySrtingAsInput_whenAddNumberFunctionGetsTheInput_thenTheFunctionPrintsZero(self):
+
+        string_as_input = []
+
+        test_result = add_number(string_as_input)
+
+        self.assertEqual(test_result, 0)
+
+    def test_GivenAnStringWithOneElement_whenAddNumberFunctionGetsTheInput_thenTheFunctionPrintsTheElement(self):
+
+        string_as_input = [1]
+
+        test_result = add_number(string_as_input)
+
+        self.assertEqual(test_result, 1)
+
+    def test_GivenAnStringWithTwoElements_whenAddNumberFunctionGetsTheInput_thenTheFunctionPrintsTheSumOfTheElements(self):
+
+        string_as_input = [1,2]
+
+        test_result = add_number(string_as_input)
+
+        self.assertEqual(test_result, 3)
