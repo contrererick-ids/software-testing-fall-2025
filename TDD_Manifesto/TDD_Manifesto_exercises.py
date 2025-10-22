@@ -5,4 +5,7 @@ TDD Manifesto exercises
 """
 
 def fizz_buzz(num):
-    return str(num)
+    if num % 3 == 0:
+        return "Fizz"
+    else:
+        return str(num)

@@ -31,7 +31,7 @@ class TestFizzBuzz(unittest.TestCase):
 
     def test_GivenAMultipleOfThreeAsInput_whenFizzBuzzFunctionGetsTheInput_thenTheFunctionPrintsFizz(self):
 
-        number_as_input = 0
+        number_as_input = 3
 
         test_string_output = fizz_buzz(number_as_input)        
 
