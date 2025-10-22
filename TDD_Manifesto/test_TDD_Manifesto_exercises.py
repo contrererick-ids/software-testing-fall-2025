@@ -93,3 +93,11 @@ class TestAddNumber(unittest.TestCase):
         test_result = add_number(string_as_input)
 
         self.assertEqual(test_result, 3)
+
+    def test_GivenAnUnknownNumberOfElements_whenAddNumberFunctionGetsTheInput_thenTheFunctionPrintsTheSumOfTheElements(self):
+
+        string_as_input = [1,2,3,4,5,6,7,8,9,10]
+
+        test_result = add_number(string_as_input)
+
+        self.assertEqual(test_result, 55)
