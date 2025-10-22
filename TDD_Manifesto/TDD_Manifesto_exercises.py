@@ -22,6 +22,8 @@ def fizz_buzz(num):
 
 def add_number(str):
     sum_result = 0
-    for element in str:
-        sum_result += int(element)
+    if str != "":
+        list_of_numbers = str.split(",")
+        for number in list_of_numbers:
+            sum_result += int(number)
     return sum_result

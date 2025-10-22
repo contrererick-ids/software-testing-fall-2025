@@ -72,7 +72,7 @@ class TestAddNumber(unittest.TestCase):
 
     def test_GivenAnEmptySrtingAsInput_whenAddNumberFunctionGetsTheInput_thenTheFunctionPrintsZero(self):
 
-        string_as_input = []
+        string_as_input = ""
 
         test_result = add_number(string_as_input)
 
@@ -80,7 +80,7 @@ class TestAddNumber(unittest.TestCase):
 
     def test_GivenAnStringWithOneElement_whenAddNumberFunctionGetsTheInput_thenTheFunctionPrintsTheElement(self):
 
-        string_as_input = [1]
+        string_as_input = "1"
 
         test_result = add_number(string_as_input)
 
@@ -88,7 +88,7 @@ class TestAddNumber(unittest.TestCase):
 
     def test_GivenAnStringWithTwoElements_whenAddNumberFunctionGetsTheInput_thenTheFunctionPrintsTheSumOfTheElements(self):
 
-        string_as_input = [1,2]
+        string_as_input = "1,2"
 
         test_result = add_number(string_as_input)
 
@@ -96,7 +96,7 @@ class TestAddNumber(unittest.TestCase):
 
     def test_GivenAnUnknownNumberOfElements_whenAddNumberFunctionGetsTheInput_thenTheFunctionPrintsTheSumOfTheElements(self):
 
-        string_as_input = [1,2,3,4,5,6,7,8,9,10]
+        string_as_input = "1,2,3,4,5,6,7,8,9,10"
 
         test_result = add_number(string_as_input)
 
