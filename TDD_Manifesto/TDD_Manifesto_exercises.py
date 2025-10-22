@@ -20,5 +20,8 @@ def fizz_buzz(num):
     else:
         return "Error: Input should be Integer."
 
-def add_number(num):
-    return num
+def add_number(str):
+    sum_result = 0
+    for element in str:
+        sum_result += int(element)
+    return sum_result
