@@ -22,12 +22,22 @@ class TestFizzBuzz(unittest.TestCase):
         test_string_output = fizz_buzz(number_as_input)
 
         self.assertEqual(test_string_output, "0")
+    
+    def test_GivenANegativeNumberAsInput_whenFizzBuzzFunctionGetsTheInput_thenTheNumberIsPrintAsSring(self):
+        
+        number_as_input = -1
+
+        test_string_output = fizz_buzz(number_as_input)
+
+        self.assertEqual(test_string_output, "-1")
 
     def test_GivenACharacterAsInput_whenFizzBuzzFunctionGetsTheInput_thenTheFunctionFails(self):
 
         character_as_input = "a"
 
-        self.assertRaises(ValueError, fizz_buzz, character_as_input)
+        test_string_output = fizz_buzz(character_as_input)
+
+        self.assertEqual(test_string_output, "Error: Input should be Integer.")
 
     def test_GivenAMultipleOfThreeAsInput_whenFizzBuzzFunctionGetsTheInput_thenTheFunctionPrintsFizz(self):
 
