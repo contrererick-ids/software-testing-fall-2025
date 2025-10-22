@@ -101,3 +101,11 @@ class TestAddNumber(unittest.TestCase):
         test_result = add_number(string_as_input)
 
         self.assertEqual(test_result, 55)
+
+    def test_GivenAnStringWithNewLineCharacters_whenAddNumberFunctionsGetsTheInput_thenTheFunctionPrintsTheSumIgnoringTheNewLinesCharacters(self):
+
+        string_as_input = "1,2\n3"
+
+        test_result = add_number(string_as_input)
+
+        self.assertEqual(test_result, 6)

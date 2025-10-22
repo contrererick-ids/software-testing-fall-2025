@@ -3,6 +3,7 @@
 """
 TDD Manifesto exercises
 """
+import re
 
 def fizz_buzz(num):
     if type(num) == int:
@@ -20,10 +21,10 @@ def fizz_buzz(num):
     else:
         return "Error: Input should be Integer."
 
-def add_number(str):
+def add_number(string_input):
     sum_result = 0
-    if str != "":
-        list_of_numbers = str.split(",")
+    if string_input != "":
+        list_of_numbers = re.split(r"[,\n]+", string_input)
         for number in list_of_numbers:
             sum_result += int(number)
     return sum_result
