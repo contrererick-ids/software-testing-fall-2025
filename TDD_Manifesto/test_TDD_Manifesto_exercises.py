@@ -21,7 +21,7 @@ class TestFizzBuzz(unittest.TestCase):
 
         test_string_output = fizz_buzz(number_as_input)
 
-        self.assertEqual(test_string_output,"0")
+        self.assertEqual(test_string_output, "0")
 
     def test_GivenACharacterAsInput_whenFizzBuzzFunctionGetsTheInput_thenTheFunctionFails(self):
 
