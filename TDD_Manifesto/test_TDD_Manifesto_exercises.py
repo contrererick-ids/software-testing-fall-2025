@@ -125,3 +125,20 @@ class TestAddNumber(unittest.TestCase):
         test_result = add_number(string_as_input)
 
         self.assertRaises(ValueError, int, string_as_input)
+
+    def test_GivenAStringWithEspecialSeparators_whenAddNumberFunctionsGetsTheInput_thenTheFunctionPrintsTheSumIgnoringTheEspecialSeparators(self):
+
+        string_as_input_a = "//;\n1;3"
+        string_as_input_b = "//|\n1|2|3"
+        string_as_input_c = "//sep\n2sep5"
+        string_as_input_d = "//|\n1|2,3"
+
+        test_result_a = add_number(string_as_input_a)
+        test_result_b = add_number(string_as_input_b)
+        test_result_c = add_number(string_as_input_c)
+        test_result_d = add_number(string_as_input_d)
+
+        self.assertEqual(test_result_a, 4)
+        self.assertEqual(test_result_b, 6)
+        self.assertEqual(test_result_c, 7)
+        self.assertEqual(test_result_d, f"'|' expected but ',' found at position 3.")
