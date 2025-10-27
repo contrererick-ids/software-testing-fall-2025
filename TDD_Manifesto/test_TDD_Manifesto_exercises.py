@@ -142,3 +142,14 @@ class TestAddNumber(unittest.TestCase):
         self.assertEqual(test_result_b, 6)
         self.assertEqual(test_result_c, 7)
         self.assertEqual(test_result_d, f"'|' expected but ',' found at position 3.")
+
+    def test_GivenAStringWithNegativeNumbers_whenAddNumberFunctionsGetsTheInput_thenTheFunctionPrintsErrorMessage(self):
+
+        string_as_input_a = "1,-2"
+        string_as_input_b = "2,-4,-9"
+
+        test_result_a = add_number(string_as_input_a)
+        test_result_b = add_number(string_as_input_b)
+
+        self.assertEqual(test_result_a, "Negative number(s) not allowed: -2")
+        self.assertEqual(test_result_b, "Negative number(s) not allowed: -4, -9")

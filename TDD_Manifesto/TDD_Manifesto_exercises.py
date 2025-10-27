@@ -24,6 +24,7 @@ def fizz_buzz(num):
 def add_number(string_input):
     sum_result = 0
     list_of_numbers = []
+    negative_numbers = []
     er_for_custom_separator = r"^//(.+)\n(.*)$"
     match = re.match(er_for_custom_separator, string_input)
     if match:
@@ -43,6 +44,11 @@ def add_number(string_input):
             return -1
         if string_input != "":
             list_of_numbers = re.split(r"[,\n]+", string_input)
+    for number in list_of_numbers:
+        if int(number) < 0:
+            negative_numbers.append(number)
+    if negative_numbers:
+        return f"Negative number(s) not allowed: {', '.join(negative_numbers)}"
     for number in list_of_numbers:
         sum_result += int(number)
     return sum_result
