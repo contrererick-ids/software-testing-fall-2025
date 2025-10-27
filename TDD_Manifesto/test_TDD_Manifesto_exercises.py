@@ -117,3 +117,11 @@ class TestAddNumber(unittest.TestCase):
         test_result = add_number(string_as_input)
 
         self.assertEqual(test_result, "Invalid input")
+
+    def test_GivenAStringEndingWithASeparator_whenAddNumberFunctionsGetsTheInput_thenTheFunctionReturnsAnError(self):
+
+        string_as_input = "1,2,"
+
+        test_result = add_number(string_as_input)
+
+        self.assertRaises(ValueError, int, string_as_input)

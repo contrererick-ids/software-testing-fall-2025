@@ -25,6 +25,8 @@ def add_number(string_input):
     er = re.findall(r",\n", string_input)
     if er:
         return "Invalid input"
+    if string_input.endswith(","):
+        return -1
     sum_result = 0
     if string_input != "":
         list_of_numbers = re.split(r"[,\n]+", string_input)
