@@ -78,7 +78,7 @@ class TestAddNumber(unittest.TestCase):
 
         self.assertEqual(test_result, 0)
 
-    def test_GivenAnStringWithOneElement_whenAddNumberFunctionGetsTheInput_thenTheFunctionPrintsTheElement(self):
+    def test_GivenAStringWithOneElement_whenAddNumberFunctionGetsTheInput_thenTheFunctionPrintsTheElement(self):
 
         string_as_input = "1"
 
@@ -86,7 +86,7 @@ class TestAddNumber(unittest.TestCase):
 
         self.assertEqual(test_result, 1)
 
-    def test_GivenAnStringWithTwoElements_whenAddNumberFunctionGetsTheInput_thenTheFunctionPrintsTheSumOfTheElements(self):
+    def test_GivenAStringWithTwoElements_whenAddNumberFunctionGetsTheInput_thenTheFunctionPrintsTheSumOfTheElements(self):
 
         string_as_input = "1,2"
 
@@ -102,10 +102,18 @@ class TestAddNumber(unittest.TestCase):
 
         self.assertEqual(test_result, 55)
 
-    def test_GivenAnStringWithNewLineCharacters_whenAddNumberFunctionsGetsTheInput_thenTheFunctionPrintsTheSumIgnoringTheNewLinesCharacters(self):
+    def test_GivenAStringWithNewLineCharacters_whenAddNumberFunctionsGetsTheInput_thenTheFunctionPrintsTheSumIgnoringTheNewLinesCharacters(self):
 
         string_as_input = "1,2\n3"
 
         test_result = add_number(string_as_input)
 
         self.assertEqual(test_result, 6)
+
+    def test_GivenAStringWithCommaAndNewLineTogether_whenAddNumberFunctionsGetsTheInput_thenTheFunctionShouldIndicateTheInputIsInvalid(self):
+
+        string_as_input = "2,\n3"
+
+        test_result = add_number(string_as_input)
+
+        self.assertEqual(test_result, "Invalid input")
