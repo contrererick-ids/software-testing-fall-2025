@@ -45,6 +45,7 @@ repos:
     hooks:
       - id: pylint
         exclude: ^white_box|^test_
+        additional_dependencies: [behave, requests, selenium]
 
   - repo: https://github.com/sirosen/check-jsonschema
     rev: 0.28.0
